@@ -1,8 +1,8 @@
-import coordinate from "./coordinate";
+import coordinate from './coordinate';
 
 function ship(shipLength, coord, shipDirection) {
 	const shipArea = [];
-	if (shipDirection == 'hor') {
+	if (shipDirection === 'hor') {
 		for (let i = 0; i < shipLength; i++) {
 			shipArea[i] = coordinate(coord.x, coord.y + i);
 		}
