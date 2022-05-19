@@ -12,16 +12,16 @@ function ship(shipLength, coord, shipDirection) {
 		}
 	}
 	const hit = ({ x, y }) => {
-		shipArea.forEach((value, index, arr) => {
-			if (arr[index].x === x && arr[index].y === y) {
-				arr[index].isHit = 1;
+		shipArea.forEach((value) => {
+			if (value.x === x && value.y === y) {
+				value.isHit = 1;
 			}
 		});
 	};
 	const checkCoord = ({ x, y }) => {
 		let check = false;
-		shipArea.forEach((value, index, arr) => {
-			if (arr[index].x === x && arr[index].y === y) {
+		shipArea.forEach((value) => {
+			if (value.x === x && value.y === y) {
 				check = true;
 			}
 		});

@@ -6,10 +6,11 @@ body{
     height: 100vh;
     display: flex;
     flex-direction: column;
-    /* background: url("../img/battleship.jpg"); */
+    background-color: rgb(238, 238, 231);
+    /* background: url("../img/battleship.jpg"); 
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center;*/
 }
 h1{
     color: white;
@@ -22,7 +23,7 @@ h1{
     border-radius: 10px;
 }
 header{
-    margin-top: 50px;
+    margin-top: 100px;
 }
 main{
     flex-grow: 1;
@@ -30,7 +31,7 @@ main{
 }
 .container{
     display: flex;
-    margin-top: 100px;
+    margin-top: 120px;
     justify-content: center;
     gap: 100px;
     padding: 30px;
@@ -41,9 +42,22 @@ main{
     border-radius: 10px;
 }
 
-.gameboard{
+.gameBoard{
     border: 1px solid black;
-    width: 300px;
+    width: 309;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr)
+}
+.cell{
+    width: 30px;
+    height: 30px;
+    border: solid 1px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.missed-hit{
+    background-color: yellow;
 }
 footer{
     height: 70px;

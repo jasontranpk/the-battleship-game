@@ -1,3 +1,4 @@
+import { check } from 'prettier';
 import ship from './ship';
 
 function gameBoard() {
@@ -8,16 +9,32 @@ function gameBoard() {
 		shipArr.push(newShip);
 	};
 	const receiveAttack = (coord) => {
-		shipArr.forEach((val, index, arr) => {
-			if (arr[index].checkCoord(coord)) arr[index].hit(coord);
-			else missedShot.push(coord);
+		let checkMissed = true;
+		shipArr.forEach((val) => {
+			if (val.checkCoord(coord)) {
+				val.hit(coord);
+				checkMissed = false;
+			}
 		});
+		if(checkMissed === true){
+			missedShot.push(coord);
+		}
 	};
+	const checkAllShipSunk = () => {
+		let check = true;
+		shipArr.forEach((val) => {
+			check = val.shipArea.some((coordinate) => {
+				coordinate.x === 0
+			})
+		})
+		return !check;
+	}
 	return {
 		shipArr,
         missedShot,
 		addShip,
 		receiveAttack,
+		checkAllShipSunk,
 	};
 }
 

@@ -8,57 +8,61 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isProduction = false;
 
 const stylesHandler = isProduction
-  ? MiniCssExtractPlugin.loader
-  : 'style-loader';
+	? MiniCssExtractPlugin.loader
+	: 'style-loader';
 
 const config = {
-  devtool: 'inline-source-map',
-  entry: './src/index.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    clean: true
-  },
-  devServer: {
-    open: true,
-    host: 'localhost',
-    static: './dist',
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index_template.html',
-    }),
+	devtool: 'inline-source-map',
+	entry: './src/index.js',
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+	},
+	devServer: {
+		static: './dist',
+		port: 8080,
+		open: true,
+		compress: true,
+		hot: false,
+		liveReload: true,
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: './src/index_template.html',
+		}),
+		// Add your plugins here
+		// Learn more about plugins from https://webpack.js.org/configuration/plugins/
+	],
+	optimization: {
+		runtimeChunk: 'single',
+	},
+	module: {
+		rules: [
+			{
+				test: /\.(js|jsx)$/i,
+				loader: 'babel-loader',
+			},
+			{
+				test: /\.css$/i,
+				use: [stylesHandler, 'css-loader'],
+			},
+			{
+				test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+				type: 'asset',
+			},
 
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/i,
-        loader: 'babel-loader',
-      },
-      {
-        test: /\.css$/i,
-        use: [stylesHandler, 'css-loader'],
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: 'asset',
-      },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
-    ],
-  },
+			// Add your rules for custom modules here
+			// Learn more about loaders from https://webpack.js.org/loaders/
+		],
+	},
 };
 
 module.exports = () => {
-  if (isProduction) {
-    config.mode = 'production';
+	if (isProduction) {
+		config.mode = 'production';
 
-    config.plugins.push(new MiniCssExtractPlugin());
-  } else {
-    config.mode = 'development';
-  }
-  return config;
+		config.plugins.push(new MiniCssExtractPlugin());
+	} else {
+		config.mode = 'development';
+	}
+	return config;
 };
