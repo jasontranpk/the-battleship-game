@@ -9,8 +9,8 @@ function player(name) {
 		else turn = 0;
 	};
 	const randomPlays = () => {
-		const x = Math.round(Math.random() * 20);
-		const y = Math.round(Math.random() * 20);
+		const x = Math.round(Math.random() * 10);
+		const y = Math.round(Math.random() * 10);
 		return coordinate(x, y);
 	};
 	return {

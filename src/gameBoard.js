@@ -16,18 +16,17 @@ function gameBoard() {
 				checkMissed = false;
 			}
 		});
-		if(checkMissed === true){
+		if (checkMissed === true){
 			missedShot.push(coord);
 		}
 	};
 	const checkAllShipSunk = () => {
 		let check = true;
-		shipArr.forEach((val) => {
-			check = val.shipArea.some((coordinate) => {
-				coordinate.x === 0
-			})
+		shipArr.forEach((ship) => {
+			if(!ship.isSunk())
+				check = false;
 		})
-		return !check;
+		return check;
 	}
 	return {
 		shipArr,
