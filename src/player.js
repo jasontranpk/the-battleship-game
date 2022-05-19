@@ -8,11 +8,37 @@ function player(name) {
 		if (turn === 0) turn = 1;
 		else turn = 0;
 	};
+	const checkShipCoord = (coord) => {
+		let flag = false;
+		playerGameBoard.shipArr.forEach((ship) => {
+			ship.shipArea.forEach((shipCoord) => {
+				if (shipCoord.x === coord.x && shipCoord.y === coord.y) {
+					flag = true;
+				}
+			});
+		});
+		return flag;
+	};
+	const checkMissedCoord = (coord) => {
+		let flag = false;
+		playerGameBoard.missedShot.forEach((missedCoord) => {
+			if (missedCoord.x === coord.x && missedCoord.y === coord.y) {
+				flag = true;
+			}
+		});
+		return flag;
+	};
 	const randomPlays = () => {
-		const x = Math.round(Math.random() * 10);
-		const y = Math.round(Math.random() * 10);
+		let x = Math.round(Math.random() * 9);
+		let y = Math.round(Math.random() * 9);
+		while (checkShipCoord({ x, y }) || checkMissedCoord({ x, y })) {
+			x = Math.round(Math.random() * 9);
+			y = Math.round(Math.random() * 9);
+		}
+		console.log(`${x} - ${y}`);
 		return coordinate(x, y);
 	};
+
 	return {
 		name,
 		get turn() {
@@ -21,6 +47,7 @@ function player(name) {
 		playerGameBoard,
 		changeTurn,
 		randomPlays,
+		checkShipCoord,
 	};
 }
 

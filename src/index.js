@@ -4,7 +4,7 @@ import player from './player';
 const gameLoop = (() => {
 	const player1 = player('player1');
 	const computer = player('computer');
-	computer.changeTurn();
+	player1.changeTurn();
 	player1.playerGameBoard.addShip(2, { x: 0, y: 0 }, 'ver');
 	player1.playerGameBoard.addShip(3, { x: 4, y: 1 }, 'hor');
 	player1.playerGameBoard.addShip(4, { x: 1, y: 5 }, 'ver');
@@ -56,11 +56,9 @@ const gameLoop = (() => {
 		const leftGameBoardArr = Array.from(leftGameBoardNode);
 		const leftGameBoard = leftGameBoardArr[0];
 		if (player1.turn === 1) {
-			rightGameBoard.style.pointerEvents = 'none';
-			leftGameBoard.style.pointerEvents = 'auto';
-		} else {
-			leftGameBoard.style.pointerEvents = 'none';
 			rightGameBoard.style.pointerEvents = 'auto';
+		} else {
+			rightGameBoard.style.pointerEvents = 'none';
 		}
 		if (
 			player1.playerGameBoard.checkAllShipSunk() ||
@@ -81,6 +79,12 @@ const gameLoop = (() => {
 		renderMissedShot();
 		renderShip();
 		player1.changeTurn();
+		// computer counter attack
+		const computerHit = computer.randomPlays();
+		player1.playerGameBoard.receiveAttack(computerHit);
+		player1.changeTurn();
+		renderMissedShot();
+		renderShip();
 		loop();
 	};
 	const render = () => {
@@ -96,9 +100,9 @@ const gameLoop = (() => {
 				const cell = document.createElement('div');
 				cell.classList.add('cell');
 				cell.id = `l${i}-${j}`;
-				cell.addEventListener('click', (e) => {
-					eventReceiveHit(e, player1);
-				});
+				// cell.addEventListener('click', (e) => {
+				// 	eventReceiveHit(e, player1);
+				// });
 				leftGameBoard.appendChild(cell);
 				const rightCell = document.createElement('div');
 				rightCell.classList.add('cell');
