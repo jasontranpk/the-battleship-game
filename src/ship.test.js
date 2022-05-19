@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 import ship from './ship';
 
 let myHorizonShip;
@@ -21,6 +22,4 @@ test('is hit (2,4 )? missed', () => {
 	myHorizonShip.hit({ x: 2, y: 4 });
 	expect(myHorizonShip.shipArea[2].isHit).toBe(0);
 });
-test('check coordinate', () => {
-	expect(myHorizonShip.checkCoord({x:2, y:2})).toBe(true);
-});
+

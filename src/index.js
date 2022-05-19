@@ -8,12 +8,16 @@ const gameLoop = (() => {
 	player1.playerGameBoard.addShip(2, { x: 0, y: 0 }, 'ver');
 	player1.playerGameBoard.addShip(3, { x: 4, y: 1 }, 'hor');
 	player1.playerGameBoard.addShip(4, { x: 1, y: 5 }, 'ver');
-	computer.playerGameBoard.addShip(2, { x: 2, y: 2 }, 'ver');
-	computer.playerGameBoard.addShip(3, { x: 3, y: 5 }, 'hor');
-	computer.playerGameBoard.addShip(4, { x: 4, y: 6 }, 'hor');
+	// computer.playerGameBoard.addShip(2, { x: 2, y: 2 }, 'ver');
+
+	// computer.playerGameBoard.addShip(3, { x: 3, y: 5 }, 'hor');
+	// computer.playerGameBoard.addShip(4, { x: 4, y: 6 }, 'hor');
+	computer.playerGameBoard.createRandomShip(2);
+	computer.playerGameBoard.createRandomShip(3);
+	computer.playerGameBoard.createRandomShip(4);
 	const renderShip = () => {
-		player1.playerGameBoard.shipArr.forEach((val, index) => {
-			val.shipArea.forEach((ship, index) => {
+		player1.playerGameBoard.shipArr.forEach((val) => {
+			val.shipArea.forEach((ship) => {
 				const tempCell = document.getElementById(
 					`l${ship.x}-${ship.y}`
 				);
@@ -64,7 +68,12 @@ const gameLoop = (() => {
 			player1.playerGameBoard.checkAllShipSunk() ||
 			computer.playerGameBoard.checkAllShipSunk()
 		) {
-			alert('winner is already choosen');
+			if (player1.playerGameBoard.checkAllShipSunk() === true) {
+				alert('Computer won');
+			} else {
+				alert('You won');
+			}
+
 			leftGameBoard.style.pointerEvents = 'none';
 			rightGameBoard.style.pointerEvents = 'none';
 		}

@@ -12,9 +12,3 @@ test('change turn', () => {
 test('name', () => {
 	expect(player1.name).toBe('player1');
 });
-
-test('check if Coord is owned by any ship', () => {
-	console.log(player1.randomPlays());
-	expect(player1.checkShipCoord({ x: 2, y: 3 })).toBe(true);
-});
-
